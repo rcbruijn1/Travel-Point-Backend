@@ -95,6 +95,13 @@ app.use('*', function (req, res) {
     });
 });
 
+// Set Static Folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
+  });
+
 // Installatie klaar; start de server.
 app.listen(config.env.webPort, function () {
     console.log('De server luistert op port ' + app.get('port'));

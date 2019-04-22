@@ -9,9 +9,11 @@ var env = {
     dbDatabase: process.env.DB_DATABASE || 'Cities'
 }
 
-var dburl = process.env.NODE_ENV === 'production' ?
-    'mongodb://' + env.dbUser + ':' + env.dbPassword + '@' + env.dbHost + ':' + env.dbPort + '/' + env.dbDatabase :
-    'mongodb://localhost/' + env.dbDatabase
+// var dburl = process.env.NODE_ENV === 'production' ?
+//     'mongodb://' + env.dbUser + ':' + env.dbPassword + '@' + env.dbHost + ':' + env.dbPort + '/' + env.dbDatabase :
+//     'mongodb://localhost/' + env.dbDatabase
+
+var dburl = 'mongodb://mongo:27017/travel-point'
 
 module.exports = {
     env: env,

@@ -1,0 +1,62 @@
+<div *ngIf="!toggled" class="container">
+  <form (submit)="onJourneySubmit()">
+    <h4 class="page-header">Please fill in the details of your new journey</h4>
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" [(ngModel)]="journey_name" name="journey_name" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Departure Date</label>
+      <input type="date" max="3000-12-31" min="1000-01-01" [(ngModel)]="journey_departure_date"
+        name="journey_departure_date" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Return Date</label>
+      <input type="date" max="3000-12-31" min="1000-01-01" [(ngModel)]="journey_return_date" name="journey_return_date"
+        class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea [(ngModel)]="journey_description" name="journey_description" class="form-control"></textarea>
+    </div>
+    <input type="submit" class="btn btn-success" value="Next step">
+  </form>
+</div>
+
+<div *ngIf="toggled" class="container">
+  <div class="locations-list">
+    <div id="hide" class="card-container" *ngFor="let f of foundLocations; let i = index">
+      <div class="custom-card">
+        <div class="flex-title">
+          <h5 class="title">{{f.venue.name}}</h5>
+        </div>
+      </div>
+      <button class="btn btn-view" (click)="openVenue(content,f.venue.id)">VIEW</button>
+      <button class="btn btn-add" (click)="addLocation(i,f.venue)">ADD</button>
+    </div>
+  </div>
+    <button id="test" class="btn btn-confirm" routerLink='/'>Confirm</button>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">City Locations</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div *ngIf="activeVenue" class="modal-body">
+    <div class="card">
+      <img class="card-img" src="{{activeVenue.bestPhoto.prefix}}300x500{{activeVenue.bestPhoto.suffix}}"
+        alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{activeVenue.name}}</h5>
+        <p class="card-text">{{activeVenue.description}}</p>
+        <h6 class="card-title">{{activeVenue.location.address}}, {{activeVenue.location.city}}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Close</button>
+  </div>
+</ng-template>

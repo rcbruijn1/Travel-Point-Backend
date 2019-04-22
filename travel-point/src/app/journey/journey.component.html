@@ -1,0 +1,80 @@
+<div *ngIf="!toggled" class="container container-search">
+  <div class="grid-left">
+    <h2 class="container-header">Search City</h2>
+    <div class="flexbox">
+      <div class="search">
+        <form (submit)="searchCity()" autocomplete="off">
+          <input hidden autocomplete="false">
+          <input id="input" type="text" placeholder="       Search . . ." name="search" [(ngModel)]="searchText"
+            required>
+          <input type="submit" style="display:none" />
+        </form>
+      </div>
+    </div>
+    <div class="results">
+      <div class="cityResult" *ngIf="foundCity">
+          <h4 style="text-align:center; padding-bottom:50px; padding-top: 25px;">Did you mean?</h4>
+        <div>
+          <h3 class="found-btn" style="cursor: pointer;" (click)="toggle()" (click)="getLocations()">{{foundCity.geocode.displayString}}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-right">
+    <div id="suggestion" style="display:flex; flex-direction: column; justify-content: center;">
+      <h3 class="grid-r-header">Suggestion of the Day</h3>
+      <hr style="width: 50px; border-color: white;">
+      <h5 class="grid-r-header">Breda, the Netherlands</h5>
+      <button class="btn-suggest">EXPLORE</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="toggled" class="container container-toggled">
+  <div class="return">
+  <button class="btn btn-return" (click)="untoggle()">
+    <fa name="arrow-left" size="2x"></fa>
+  </button>
+</div>
+  <div *ngIf="foundCity" class="container-journey">
+    <div class="grid-form">
+        <h2 class="page-header">{{foundCity.geocode.displayString}}</h2>
+        <button class="btn btn-success" [routerLink]= "['/createJourney', foundCity.geocode.displayString]">Create Journey</button>
+    </div>
+    <div class="grid-locations">
+      <h5 class="page-header">Explore the locations of {{foundCity.geocode.displayString}}:</h5>
+      <div class="locations-list">
+        <div *ngFor="let f of foundLocations" class="custom-card">
+          <div class="flex-title">
+            <h5 class="title">{{f.venue.name}}</h5>
+          </div>
+          <div class="flex-buttons">
+            <a class="btn" (click)="openVenue(content,f.venue.id)">View Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">City Locations</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div *ngIf="activeVenue" class="modal-body">
+      <div class="card">
+        <img class="card-img" src="{{activeVenue.bestPhoto.prefix}}300x500{{activeVenue.bestPhoto.suffix}}"
+          alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{activeVenue.name}}</h5>
+          <p class="card-text">{{activeVenue.description}}</p>
+          <h6 class="card-title">{{activeVenue.location.address}}, {{activeVenue.location.city}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Close</button>
+    </div>
+  </ng-template>
