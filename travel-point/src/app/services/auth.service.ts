@@ -16,13 +16,13 @@ export class AuthService {
 
   registerUser(user){
     let headers = new HttpHeaders().set('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/api/v1/user/register', user, {headers: headers})
+    return this.http.post('api/v1/user/register', user, {headers: headers})
     .pipe(map((res => res))); /// .pipe(map(res => res.json())); aanpassen mocht dit nieuwe code niet functioneren.
   }
 
   authenticateUser(user){
     let headers = new HttpHeaders().set('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/api/v1/user/authenticate', user, {headers: headers})
+    return this.http.post('api/v1/user/authenticate', user, {headers: headers})
     // .pipe(map((res:Response) => res.json()));
   }
 
@@ -30,7 +30,7 @@ export class AuthService {
     this.loadToken();
     let headers = new HttpHeaders().set('Content-Type','application/json'); // create header object
     headers = headers.append('Authorization', this.authToken); // add a new header, creating a new object
-    return this.http.get('http://localhost:3000/api/v1/user/profile', {headers: headers})
+    return this.http.get('api/v1/user/profile', {headers: headers})
     // .pipe(map((res:Response) => res.json()));
   }
 

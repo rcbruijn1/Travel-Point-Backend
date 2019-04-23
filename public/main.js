@@ -776,19 +776,19 @@ var AuthService = /** @class */ (function () {
     }
     AuthService.prototype.registerUser = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/api/v1/user/register', user, { headers: headers })
+        return this.http.post('api/v1/user/register', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((function (res) { return res; }))); /// .pipe(map(res => res.json())); aanpassen mocht dit nieuwe code niet functioneren.
     };
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/api/v1/user/authenticate', user, { headers: headers });
+        return this.http.post('api/v1/user/authenticate', user, { headers: headers });
         // .pipe(map((res:Response) => res.json()));
     };
     AuthService.prototype.getProfile = function () {
         this.loadToken();
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-Type', 'application/json'); // create header object
         headers = headers.append('Authorization', this.authToken); // add a new header, creating a new object
-        return this.http.get('http://localhost:3000/api/v1/user/profile', { headers: headers });
+        return this.http.get('api/v1/user/profile', { headers: headers });
         // .pipe(map((res:Response) => res.json()));
     };
     AuthService.prototype.storeUserData = function (token, user) {
@@ -964,38 +964,38 @@ var JourneyService = /** @class */ (function () {
         this.baseUrl = 'http://localhost:3000/api/v1/journeys';
     }
     JourneyService.prototype.getJourneys = function () {
-        return this._http.get(this.baseUrl)
+        return this._http.get('api/v1/journeys')
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((function (res) { return res; })));
     };
     JourneyService.prototype.getJourneyById = function (id) {
-        return this._http.get(this.baseUrl + '/' + id)
+        return this._http.get('api/v1/journeys' + '/' + id)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((function (res) { return res; })));
     };
     JourneyService.prototype.deleteLocation = function (id, journeyId) {
         console.log(journeyId);
-        return this._http.delete('http://localhost:3000/api/v1/city-locations/' + id + '&' + journeyId)
+        return this._http.delete('api/v1/city-locations/' + id + '&' + journeyId)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((function (res) { return res; })));
     };
     JourneyService.prototype.updateJourney = function (id, update) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-Type', 'application/json');
-        return this._http.put('http://localhost:3000/api/v1/journeys/update/' + id, update, { headers: headers })
+        return this._http.put('api/v1/journeys/update/' + id, update, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((function (res) { return res; })));
     };
     JourneyService.prototype.addJourney = function (journey) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-Type', 'application/json');
-        return this._http.post('http://localhost:3000/api/v1/journeys', journey, { headers: headers })
+        return this._http.post('api/v1/journeys', journey, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((function (res) { return res; })));
     };
     JourneyService.prototype.addJourneyToUser = function (journey, id) {
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-Type', 'application/json');
-        return this._http.put('http://localhost:3000/api/v1/journeys/user' + '/' + id, journey, { headers: headers })
+        return this._http.put('api/v1/journeys/user' + '/' + id, journey, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((function (res) { return res; })));
     };
     JourneyService.prototype.addLocationToJourney = function (location, journey) {
         var journeyId = journey._id;
         console.log(journeyId);
         var headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]().set('Content-Type', 'application/json');
-        return this._http.post('http://localhost:3000/api/v1/journeys/location' + '/' + journeyId, location, { headers: headers })
+        return this._http.post('api/v1/journeys/location' + '/' + journeyId, location, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])((function (res) { return res; })));
     };
     JourneyService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
