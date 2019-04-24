@@ -9,6 +9,14 @@
    .container-fluid{
        height: 100vh;
    }
+
+   #img-section{
+       display: none;
+   }
+
+   .page-header{
+       margin-bottom: 50px !important;
+   }
 }
 .container{
     display: flex;
@@ -69,10 +77,11 @@
     color: rgba(0, 0, 0, 0.4);
  }
 
-.grid-section > p{
+form > p{
+    padding: 10px;
     text-align: center;
 }
 
-.grid-section > p > span > a{
+form > p > span > a{
     color: palevioletred;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ValidateService } from 'src/app/services/validate.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
   email: String;
   password: String;
 
-  constructor(private validateService: ValidateService, private authService: AuthService, private router : Router) { }
+  constructor(private validateService: ValidateService, private authService: AuthService, private router : Router, private toastr:ToastrService) { }
 
   ngOnInit() {
   }
@@ -33,24 +34,28 @@ export class RegisterComponent implements OnInit {
     
     //Validate fields
     if(!this.validateService.validateRegister(user)){
-      window.alert('Please fill in all the fields');
+      this.toastr.warning('Please fill in all the fields.', 'Invalid', {
+         easing: 'ease-in', easeTime: 300});
       return false;
     }
 
     //Validate email
     if(!this.validateService.validateEmail(user.email)){
-      window.alert('Please fill in a correct e-mail');
+      this.toastr.warning('Please fill a correct e-mail.', 'Invalid', {
+         easing: 'ease-in', easeTime: 300});
       return false;
     }
     
     //Authenticate user
     this.authService.registerUser(user).subscribe(data => {
       if(data){
-        window.alert('Registered successfuly');
+        this.toastr.success('You have registered successfully!.', 'Registered', {
+           easing: 'ease-in', easeTime: 300});
         this.router.navigate(['/user/login']);
         
       } else {
-        window.alert('Failed to register');
+        this.toastr.error('Failed to register', 'Failed', {
+          easing: 'ease-in', easeTime: 300});
         this.router.navigate(['/user/register']);
         
       }

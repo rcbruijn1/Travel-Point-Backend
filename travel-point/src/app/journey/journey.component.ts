@@ -13,7 +13,9 @@ export class JourneyComponent implements OnInit {
   searchText: string;
   closeResult: string;
   foundCity: any;
+  suggestCity: string = "Breda";
   toggled = false;
+  suggestToggled = false;
   foundLocations: any;
   activeVenue: any;
   storedLocations: [];
@@ -25,10 +27,6 @@ export class JourneyComponent implements OnInit {
   }
 
 
-  onJourneySubmit(){
-    
-  }
-
   searchCity(){
     console.log(this.searchText);
     this.cityService.getFourSquareCity(this.searchText).subscribe(res =>{
@@ -39,6 +37,15 @@ export class JourneyComponent implements OnInit {
   })
 }
 
+searchSuggestCity(){
+  this.cityService.getFourSquareCity(this.suggestCity).subscribe(res =>{
+    let jsonResponse:any = res;
+    this.foundCity = jsonResponse.response;
+    this.getLocations();
+    this.suggestToggled = true;   
+})
+}
+
 getLocations(){
   this.cityService.getFourSquareLocations(this.foundCity.headerLocation).subscribe(res => {
     let jsonResponse:any = res;
@@ -47,9 +54,16 @@ getLocations(){
   })
 }
 
+
 toggle(){
   this.toggled = true;
 }
+
+toggleSuggest(){
+  this.searchSuggestCity()
+  if(this.suggestToggled = true)
+    this.toggled = true;
+   }
 
 untoggle(){
   this.toggled = false;

@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CityService } from 'src/app/services/city.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ValidateService } from 'src/app/services/validate.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-journey-form',
@@ -28,7 +29,7 @@ export class JourneyFormComponent implements OnInit {
   journey_description: string;
 
   constructor(private cityService:CityService,private journeyService: JourneyService, private authService: AuthService,
-     private currentRoute: ActivatedRoute, private modalService: NgbModal, private validateService:ValidateService) { }
+     private currentRoute: ActivatedRoute, private modalService: NgbModal, private validateService:ValidateService, private toastr:ToastrService) { }
 
   ngOnInit() {
 
@@ -77,7 +78,8 @@ export class JourneyFormComponent implements OnInit {
 
        //Validate fields
        if(!this.validateService.validateForm(new_journey)){
-        window.alert('Please fill in all the fields');
+        this.toastr.warning('Please fill in all the fields', 'Invalid',{
+          easing: 'ease-in', easeTime: 300});
         return false;
       }
 
@@ -89,8 +91,8 @@ export class JourneyFormComponent implements OnInit {
         this.journeyService.addJourneyToUser(journey, id).subscribe(user => {
           if(user){
             this.authService.getProfile().subscribe(profile => {
-              console.log(profile);
-              console.log(this.currentJourney);
+              this.toastr.success('Created your journey!', 'Success',{
+                easing: 'ease-in', easeTime: 300});
             })
               //clear Form
               this.journey_name = '';
@@ -102,7 +104,8 @@ export class JourneyFormComponent implements OnInit {
           }
           else {
             this.untoggle();
-            console.log('fail');
+            this.toastr.error('Failed to create journey', 'Failed',{
+              easing: 'ease-in', easeTime: 300});
             // this.flashMessage.show("Failed to add!", {cssClass: 'alert-danger', timeout: 3000});
           }
         });
@@ -131,11 +134,24 @@ export class JourneyFormComponent implements OnInit {
       }
       // console.log(newLocation);
       // console.log(this.currentJourney);
-      this.journeyService.addLocationToJourney(newLocation, this.currentJourney).subscribe();
+      this.journeyService.addLocationToJourney(newLocation, this.currentJourney).subscribe(res =>{
+        if(res){
+          this.toastr.success('Location added to your journey!', 'Success',{
+            easing: 'ease-in', easeTime: 300});
+        } else {
+          this.toastr.error('Failed to add location!', 'Failed',{
+            easing: 'ease-in', easeTime: 300});
+        }
+      });
     })
 
     this.foundLocations.splice(i, 1);
     console.log(this.foundLocations);
+  }
+
+  confirmed(){
+    this.toastr.success('Your journey is created successfully!', 'Success',{
+      easing: 'ease-in', easeTime: 300});
   }
 
   openVenue( content,venueId){

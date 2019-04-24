@@ -10,6 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
   authToken: any;
   user: any;
+  baseurl: string=  'http://localhost:3000/';
 
 
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService) { }
@@ -17,21 +18,19 @@ export class AuthService {
   registerUser(user){
     let headers = new HttpHeaders().set('Content-Type','application/json');
     return this.http.post('api/v1/user/register', user, {headers: headers})
-    .pipe(map((res => res))); /// .pipe(map(res => res.json())); aanpassen mocht dit nieuwe code niet functioneren.
+    .pipe(map((res => res)));
   }
 
   authenticateUser(user){
     let headers = new HttpHeaders().set('Content-Type','application/json');
     return this.http.post('api/v1/user/authenticate', user, {headers: headers})
-    // .pipe(map((res:Response) => res.json()));
   }
 
   getProfile(){
     this.loadToken();
-    let headers = new HttpHeaders().set('Content-Type','application/json'); // create header object
-    headers = headers.append('Authorization', this.authToken); // add a new header, creating a new object
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    headers = headers.append('Authorization', this.authToken);
     return this.http.get('api/v1/user/profile', {headers: headers})
-    // .pipe(map((res:Response) => res.json()));
   }
 
   storeUserData(token, user){
@@ -42,10 +41,6 @@ export class AuthService {
 
   }
 
-  // loggedIn(){
-  //      console.log(this.jwtHelper.isTokenExpired())
-  //     return this.jwtHelper.isTokenExpired();
-  // }
 
   public loggedIn(): boolean {
     const token = localStorage.getItem('id_token');
@@ -57,7 +52,6 @@ export class AuthService {
 
   isAdmin(){
     this.user = JSON.parse(localStorage.getItem('user')); 
-    // console.log(this.user.admin);
     if(this.user.admin == true){
       return true;
     } else {

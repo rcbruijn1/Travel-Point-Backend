@@ -7,13 +7,13 @@ import { map } from "rxjs/operators";
   providedIn: 'root'
 })
 export class JourneyService {
-  baseUrl = 'http://localhost:3000/api/v1/journeys';
+  baseurl: string = 'http://localhost:3000/';
   journey: any;
 
   constructor(private _http: HttpClient) { }
 
   getJourneys() {
-    return this._http.get('api/v1/journeys')
+    return this._http.get( 'api/v1/journeys')
     .pipe(map(((res:Response) => res)));
   }
 

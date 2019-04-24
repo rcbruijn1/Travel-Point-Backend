@@ -22,5 +22,15 @@ export class MainComponent implements OnInit {
 
   }
 
+  ngOnChanges() {
+    this.authService.getProfile().subscribe(profile => {
+      let jsonResponse:any = profile;
+      this.user = jsonResponse;
+      console.log(profile);
+    })
+
+  }
+
+
 
 }

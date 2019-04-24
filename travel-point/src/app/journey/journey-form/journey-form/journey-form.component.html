@@ -30,12 +30,12 @@
         <div class="flex-title">
           <h5 class="title">{{f.venue.name}}</h5>
         </div>
+        <button class="btn btn-view" (click)="openVenue(content,f.venue.id)">VIEW</button>
+        <button class="btn btn-add" (click)="addLocation(i,f.venue)">ADD</button>
       </div>
-      <button class="btn btn-view" (click)="openVenue(content,f.venue.id)">VIEW</button>
-      <button class="btn btn-add" (click)="addLocation(i,f.venue)">ADD</button>
     </div>
   </div>
-    <button id="test" class="btn btn-confirm" routerLink='/'>Confirm</button>
+    <button id="test" class="btn btn-confirm" (click)="confirmed()" routerLink='/'>Confirm</button>
 </div>
 
 <ng-template #content let-modal>

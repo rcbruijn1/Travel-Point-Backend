@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Additional Modules
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ToastrModule } from 'ngx-toastr';
 
 
 //Components
@@ -49,7 +51,13 @@ export function tokenGetter() {
     AppRoutingModule,
     AngularFontAwesomeModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: "toast-top-full-width",
+      preventDuplicates: false
+    })
   ],
   providers: [JwtHelperService, AuthService, ValidateService, AuthGuard],
   bootstrap: [AppComponent]

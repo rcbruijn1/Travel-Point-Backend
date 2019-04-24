@@ -8,6 +8,24 @@
 @media screen and (max-width: 600px){
     .container-fluid{
         min-height: 100vh;
+        height: max-content;
+    }
+
+    .container{
+        height: max-content;
+        margin-top: 25px;
+    }
+
+    #img-section{
+        display: none;
+    }
+
+    form{
+        padding: 15px;
+    }
+
+    #last{
+        margin-bottom: 0px;
     }
  }
 
@@ -61,7 +79,6 @@
    align-self: center;
    width: 40%;
    padding: 15px;
-   margin-top: 20px;
    border-radius: 20px;  
    background-color: #68BE9A;
    font-size: 20px;
