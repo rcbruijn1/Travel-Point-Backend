@@ -14,13 +14,18 @@ export class AppComponent {
 
   constructor(private authService:AuthService, private router:Router){}
 
-  ngOnInit() {
-    this.authService.getProfile().subscribe(profile => {
-      let jsonResponse:any = profile;
-      this.user = jsonResponse;
-    })
+  // ngOnInit() {
+  //   this.authService.getProfile().subscribe(profile => {
+  //     let jsonResponse:any = profile;
+  //     this.user = jsonResponse;
+  //   })
+  // }
 
-  }
+
+getUser(){
+  this.user = JSON.parse(localStorage.getItem('user'));
+  console.log(this.user);
+}
 
 openNav(){
   let x = window.matchMedia("(max-width: 900px)");
@@ -29,6 +34,7 @@ openNav(){
   if(x.matches){
     document.getElementById("mySidenav").style.width = "50%";
     document.getElementById("toggle_fade").style.display="block";
+
   } 
   if(y.matches){
     document.getElementById("mySidenav").style.width = "100%";

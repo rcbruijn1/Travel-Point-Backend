@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <nav class="navbar">
-    <a (click)="openNav()" class="hamburger-menu" *ngIf="authService.loggedIn()">
+    <a (click)="openNav()" (click)="getUser()" class="hamburger-menu" *ngIf="authService.loggedIn()">     
       <div class="ham"></div>
       <div class="ham"></div>
       <div class="ham"></div>
@@ -11,7 +11,7 @@
   <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
     <section *ngIf="user" class="section-user">
-        <span id="user"><fa name="far fa-user" size="3x"></fa><h5>{{user.name}}</h5><hr style="border-color: #25838C"><h5>{{user.email}}</h5></span>       
+        <span id="user"><fa name="far fa-user" size="3x"></fa><h5>{{user.username}}</h5><hr style="border-color: #25838C"><h5>{{user.email}}</h5></span>       
     </section>
     <section class="section-options">
       <ul class="list-group">
