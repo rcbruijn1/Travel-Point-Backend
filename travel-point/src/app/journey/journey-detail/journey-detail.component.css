@@ -69,6 +69,24 @@
     color: white;
 }
 
+.delete-header{
+    color: red;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.btn-crud{
+    font-size: 14px;
+    padding: 10px;
+    height: max-content;
+    margin: 0px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
 @media screen and (max-width: 1450px){
     .container-fluid{
         width: 100vw;
@@ -123,10 +141,5 @@
         height: max-content;
     }
 
-    .btn{
-        font-size: 14px;
-        padding: 5px;
-        height: max-content;
-    }
 
 }

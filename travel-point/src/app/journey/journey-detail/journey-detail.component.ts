@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JourneyService } from 'src/app/services/journey.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { CityService } from 'src/app/services/city.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-journey-detail',
@@ -15,12 +16,14 @@ export class JourneyDetailComponent implements OnInit {
   activeJourney: any;
   locations: any;
   edit = false;
+  delete = false;
   closeResult: string;
   activeLocation: any;
 
   journey_description: string;
+  confirm_string: string;
 
-  constructor(private currentRoute: ActivatedRoute, private journeyService:JourneyService, private modalService: NgbModal, private cityService:CityService) { }
+  constructor(private router:Router, private currentRoute: ActivatedRoute, private journeyService:JourneyService, private modalService: NgbModal, private cityService:CityService, private toastr:ToastrService) { }
 
   ngOnInit() {
     this.sub = this.currentRoute.params.subscribe(
@@ -41,6 +44,10 @@ export class JourneyDetailComponent implements OnInit {
     this.edit = true;
   }
 
+  toggleDelete(){
+    this.delete = true;
+  }
+
   update(){
     let update = {
       description : this.journey_description
@@ -51,6 +58,21 @@ export class JourneyDetailComponent implements OnInit {
       this.edit = false;
       this.ngOnInit();
     })
+  }
+
+  deleteJourney(){
+    if(this.confirm_string === this.activeJourney.name){
+      this.journeyService.deleteJourney(this.activeJourney._id).subscribe(res =>{
+        console.log(res);
+      });
+      this.toastr.success('Journey deleted successfully', 'Successfully',{
+        easing: 'ease-in', easeTime: 300});
+        this.router.navigate(['/']);
+    }else{
+      this.toastr.warning('Please fill in the correct journey name to confirm deleting this journey', 'Invalid',{
+        easing: 'ease-in', easeTime: 300});
+    }
+   
   }
 
   deleteLocation(i, f:string){

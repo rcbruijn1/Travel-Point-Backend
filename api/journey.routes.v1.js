@@ -129,5 +129,17 @@ router.post('/journeys/location/:journeyId', function(req, res) {
 
 });
 
+router.delete('/journeys/:journeyId',  function(req, res) {
+    var journeyId = req.params.journeyId;
+    
+
+    Journey.findById(journeyId)
+        .then( journey => {
+            journey.delete()
+            res.status(200).json({msg: 'journey deleted'});
+        })
+        .catch(error => res.status(401).json(error));
+});
+
 
 module.exports = router;

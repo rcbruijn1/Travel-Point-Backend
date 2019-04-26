@@ -19,7 +19,15 @@
           <form (submit)="update()">
             <textarea *ngIf="edit" [(ngModel)]="journey_description" name="journey_description" class="form-control"
               placeholder="{{activeJourney.description}}"></textarea>
-            <input *ngIf="edit" type="submit" class="btn btn-primary" value="Submit" style="margin: 0px;">
+            <input *ngIf="edit" type="submit" class="btn btn-primary btn-crud" value="Submit">
+          </form>
+        </div>
+        <div class="journey-prop">
+          <h5 *ngIf="!delete" class="delete-header" (click)="toggleDelete()" >(delete this journey)</h5>
+          <h5 *ngIf="delete" class="delete-header">Fill in the name of your journey to confirm</h5>
+          <form (submit)="deleteJourney()">
+            <textarea *ngIf="delete" [(ngModel)]="confirm_string" name="confirm_string" class="form-control"></textarea>
+            <input *ngIf="delete" type="submit" class="btn btn-danger btn-crud" value="Delete">
           </form>
         </div>
       </div>

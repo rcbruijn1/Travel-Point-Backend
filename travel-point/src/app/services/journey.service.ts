@@ -13,13 +13,19 @@ export class JourneyService {
   constructor(private _http: HttpClient) { }
 
   getJourneys() {
-    return this._http.get( 'api/v1/journeys')
+    return this._http.get('api/v1/journeys')
     .pipe(map(((res:Response) => res)));
   }
 
   getJourneyById(id:string){
     return this._http.get('api/v1/journeys' + '/' + id)
     .pipe(map(((res:Response) => res)));
+  }
+
+  deleteJourney(journeyId:string){
+    console.log(journeyId);
+    return this._http.delete('api/v1/journeys' + '/' + journeyId)
+    .pipe(map(((res:any) => res)));
   }
 
   deleteLocation(id:string, journeyId:string){
