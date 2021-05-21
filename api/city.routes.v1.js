@@ -4,22 +4,6 @@ var mongodb = require('../config/mongo.db');
 var mongoose = require('mongoose');
 var City = require('../models/city.model');
 
-
-
-//!!!
-
-
-// THIS ROUTE IS DEPRECATED 
-
-
-
-
-
-//!!!
-
-
-
-
 //
 // Geef een lijst van alle Steden.
 //
@@ -40,7 +24,6 @@ router.get('/cities/:id', function (req, res) {
     City.findById(req.params.id)
     .populate('locations')
     .then((city) => {
-        // console.log(cities);
         res.status(200).json(city);
     })
     .catch((error) => res.status(401).json(error));
