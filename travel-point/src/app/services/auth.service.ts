@@ -44,8 +44,6 @@ export class AuthService {
 
   public loggedIn(): boolean {
     const token = localStorage.getItem('id_token');
-    // Check whether the token is expired and return
-    // true or false
     return !this.jwtHelper.isTokenExpired(token);
   }
 
