@@ -76,14 +76,8 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
         path: 'journey',
         populate: {
             path: 'locations',
-            model: 'City_Location'
-}
-    //         populate: { 
-    //             path: 'locations',
-    //             model: 'City_Location' 
-    //         }
-    //     }
-    })                               
+            model: 'City_Location',
+    }})                               
     .then(user => {
     res.status(200).json(user);
     console.log('success');
